@@ -129,28 +129,42 @@ TensorRT engines are tied to the TensorRT version and GPU architecture used to b
 
 ## Quick start
 
-Register reference images, then search for the most likely identity:
+Run the bundled five-cat ICW example to build a small gallery and retrieve one
+held-out query for each identity:
+
+```bash
+python examples/quickstart.py --backend torch --device cuda:0
+```
+
+The example uses `000000.jpg` as the query and the other five images as the
+registration gallery for each cat. It rebuilds an isolated registry under
+`outputs/icw-five-cat-registry` on every run and reports Top-1 accuracy over the
+five queries. Select `onnx` or `tensorrt` with `--backend` when the corresponding
+artifacts and runtime are available.
+
+The same workflow through the Python API is:
 
 ```python
+from pathlib import Path
+
 from cat_recognition import MeowID
 
+sample_root = Path("examples/icw_sample")
 model = MeowID(
     "artifacts/MeowID-Base",
-    backend="tensorrt",
-    device="cuda:0",
-    registry="registries/demo",
+    backend="torch",
+    registry="outputs/icw-five-cat-registry",
 )
 
-model.register(
-    "cat_001",
-    ["images/cat_001_a.jpg", "images/cat_001_b.jpg"],
-)
+model.registry.clear()
+for identity_dir in sorted(path for path in sample_root.iterdir() if path.is_dir()):
+    gallery = sorted(identity_dir.glob("00000[1-5].jpg"))
+    model.register(identity_dir.name, gallery, save=False)
+model.save_registry()
 
-prediction = model.search("images/query.jpg", top_k=5)[0]
-
-print("route:", prediction.embedding.route)
-for match in prediction.matches:
-    print(match.cat_id, match.score)
+query = sample_root / "00001380/000000.jpg"
+prediction = model.search(query, top_k=5)[0]
+print(prediction.matches[0].cat_id, prediction.matches[0].score)
 ```
 
 The registry is persisted as `registry.json` and `embeddings.npz`. Register several views of each cat when possible; images with usable faces contribute to both route-specific galleries, while face-unavailable images contribute to the whole-cat gallery.
