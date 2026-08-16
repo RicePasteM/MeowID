@@ -1,0 +1,62 @@
+base: ../base.yaml
+
+experiment:
+  name: dinov3_vitb_arcface
+  output_dir: outputs/dinov3_vitb_arcface
+
+model:
+  backbone:
+    backend: hf_dinov3
+    name: dinov3_vitb16_pretrain_lvd1689m
+    pretrained: true
+    pretrained_ckpt: pretrained/model.safetensors
+    drop_path_rate: 0.0
+    freeze_epochs: 5
+    unfreeze_last_n_blocks: 4
+    full_unfreeze_epoch: 0
+    hidden_size: 768
+    patch_size: 16
+    intermediate_size: 3072
+    num_hidden_layers: 12
+    num_attention_heads: 12
+    num_register_tokens: 4
+    hidden_act: gelu
+    layer_norm_eps: 1.0e-5
+    rope_theta: 100.0
+    query_bias: true
+    key_bias: false
+    value_bias: true
+    proj_bias: true
+    mlp_bias: true
+    use_gated_mlp: false
+    layerscale_value: 1.0
+  pool:
+    name: dinov3_token
+    patch_pool: gem
+    combine: concat
+    include_cls: true
+    include_patch: true
+    p: 3.0
+    eps: 1.0e-6
+    trainable_p: true
+
+data:
+  transforms:
+    train:
+      image_size: 256
+    eval:
+      image_size: 256
+      resize_size: 292
+
+optimizer:
+  lr: 0.00015
+  backbone_lr_multiplier: 0.1
+  pool_lr_multiplier: 1.0
+  embedding_lr_multiplier: 1.0
+  head_lr_multiplier: 1.0
+
+scheduler:
+  warmup_epochs: 5
+
+train:
+  epochs: 50

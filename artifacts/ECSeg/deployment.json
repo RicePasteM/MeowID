@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "name": "ECSeg-X",
+  "task": "whole_cat_instance_segmentation",
+  "backend": "torch",
+  "model": "ecseg_x.safetensors",
+  "config": "third_party/EdgeCrafter/ecdetseg/configs/ecseg/ecseg_x.yml",
+  "cat_label": 15,
+  "coco_category_id": 17,
+  "threshold": 0.4,
+  "preprocessing": {
+    "image_size": [640, 640],
+    "mean": [0.485, 0.456, 0.406],
+    "std": [0.229, 0.224, 0.225]
+  },
+  "crop_defaults": {
+    "output_size": [512, 512],
+    "resize_mode": "contain",
+    "background": [0, 0, 0],
+    "padding": 0.06,
+    "top_k": 1
+  },
+  "source": "https://huggingface.co/Intellindust/ECSeg_X"
+}

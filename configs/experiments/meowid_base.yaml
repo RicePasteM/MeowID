@@ -1,0 +1,179 @@
+base:
+  - ../models/dinov3_vitb_arcface.yaml
+  - ../datasets/icw_split.yaml
+
+experiment:
+  name: MeowID-Base
+  output_dir: outputs/MeowID-Base
+
+model:
+  type: meowid_base
+  # All encoders are initialized from expert checkpoints, so the foundation
+  # checkpoint is not loaded separately.
+  backbone:
+    pretrained: false
+    pretrained_ckpt: null
+    unfreeze_last_n_blocks: 6
+  head:
+    name: subcenter_arcface
+    num_subcenters: 3
+    margin: 0.35
+  pool:
+    combine: gated
+    gate_hidden_dim: 512
+  meowid:
+    body_checkpoint: artifacts/training_init/body_expert.pth
+    face_checkpoint: artifacts/training_init/face_expert.pth
+    freeze_body_expert: false
+    freeze_face_expert: false
+    freeze_body_head: false
+    freeze_face_head: false
+    hint_hidden_dim: 512
+    hint_scale: 0.10
+    body_expert_lr_multiplier: 0.02
+    face_expert_lr_multiplier: 0.01
+    body_head_lr_multiplier: 0.10
+    face_head_lr_multiplier: 0.10
+    body_projector_lr_multiplier: 1.0
+    hint_lr_multiplier: 1.0
+
+data:
+  source: paired_face_hint_split
+  root: data/icw_split
+  face_root: data/icw_catface_aligned_petface_tight_v1
+  transforms:
+    train:
+      crop_scale: [0.7, 1.0]
+      horizontal_flip_prob: 0.3
+      color_jitter:
+        brightness: 0.25
+        contrast: 0.25
+        saturation: 0.15
+        hue: 0.03
+      affine:
+        prob: 0.3
+        degrees: 12.0
+        translate: [0.03, 0.03]
+        scale: [0.9, 1.1]
+        shear: [-4.0, 4.0, -4.0, 4.0]
+        fill: 0.0
+      perspective:
+        prob: 0.15
+        distortion_scale: 0.15
+        fill: 0.0
+      gaussian_blur:
+        prob: 0.1
+        kernel_size: 5
+        sigma: [0.1, 1.5]
+      elastic_transform:
+        prob: 0.0
+      random_erasing:
+        prob: 0.15
+        scale: [0.02, 0.12]
+        ratio: [0.3, 3.3]
+        value: random
+  face_transforms:
+    train:
+      image_size: 256
+      crop_scale: [0.90, 1.0]
+      crop_ratio: [0.95, 1.05]
+      affine:
+        prob: 0.15
+        degrees: 5.0
+        translate: [0.02, 0.02]
+        scale: [0.95, 1.05]
+        shear: null
+        fill: 0.0
+      perspective:
+        prob: 0.0
+        distortion_scale: 0.0
+        fill: 0.0
+      horizontal_flip_prob: 0.5
+      color_jitter:
+        brightness: 0.20
+        contrast: 0.20
+        saturation: 0.15
+        hue: 0.03
+      gaussian_blur:
+        prob: 0.10
+        kernel_size: 5
+        sigma: [0.1, 1.5]
+      elastic_transform:
+        prob: 0.0
+        alpha: 60.0
+        sigma: 6.0
+      random_erasing:
+        prob: 0.10
+        scale: [0.02, 0.10]
+        ratio: [0.3, 3.3]
+        value: random
+      normalize:
+        mean: [0.485, 0.456, 0.406]
+        std: [0.229, 0.224, 0.225]
+    eval:
+      image_size: 256
+      resize_size: 256
+      normalize:
+        mean: [0.485, 0.456, 0.406]
+        std: [0.229, 0.224, 0.225]
+  train:
+    batch_size: 8
+    sampler:
+      name: default
+    num_workers: 8
+    pin_memory: true
+    drop_last: true
+  val:
+    batch_size: 32
+  test:
+    batch_size: 32
+
+train:
+  epochs: 30
+  find_unused_parameters: false
+  test_after_fit: true
+  aux_loss:
+    name: batch_hard_triplet
+    weight: 0.1
+    margin: 0.2
+  meowid_loss:
+    body_cls_weight: 1.0
+    face_cls_weight: 1.0
+    body_aux_weight: 0.10
+    face_aux_weight: 0.10
+    body_face_align_weight: 0.20
+    face_preserve_weight: 0.10
+
+optimizer:
+  lr: 0.00030
+  weight_decay: 0.01
+
+scheduler:
+  warmup_epochs: 2
+  min_lr: 0.000001
+
+evaluation:
+  thresholds: null
+  threshold_range:
+    start: 0.30
+    end: 0.65
+    step: 0.05
+  unknown_token: unknown
+  open_set:
+    mode: top1_gap
+    gap_thresholds: null
+    gap_threshold_range:
+      start: 0.01
+      end: 0.15
+      step: 0.02
+
+retrieval:
+  open_set:
+    mode: top1_gap
+    gap_threshold: 0.05
+
+debug:
+  train_batch_viz:
+    enabled: false
+  eval_case_viz:
+    enabled: false

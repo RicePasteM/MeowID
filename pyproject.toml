@@ -1,0 +1,75 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "meowid-base"
+version = "0.3.0"
+description = "MeowID whole-cat cropping, cat-face alignment, and identity recognition."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.26",
+  "Pillow>=10.0",
+  "PyYAML>=6.0",
+  "safetensors>=0.4.0",
+  "timm>=1.0.20",
+  "transformers>=4.56.0",
+  "torch>=2.2",
+  "torchvision>=0.17",
+  "tqdm>=4.66",
+]
+
+[project.optional-dependencies]
+retrieval = ["faiss-cpu>=1.8.0"]
+ecpose = [
+  "calflops>=0.3.2",
+  "faster-coco-eval>=1.7.2",
+  "opencv-python-headless>=4.10",
+  "pycocotools>=2.0.8",
+  "scipy>=1.13,<1.16; python_version < '3.11'",
+  "scipy>=1.16; python_version >= '3.11'",
+  "tabulate>=0.9",
+  "tensorboard>=2.18",
+]
+ecseg = [
+  "calflops>=0.3.2",
+  "faster-coco-eval>=1.7.2",
+  "opencv-python-headless>=4.10",
+  "pycocotools>=2.0.8",
+  "scipy>=1.13,<1.16; python_version < '3.11'",
+  "scipy>=1.16; python_version >= '3.11'",
+  "tabulate>=0.9",
+]
+onnx = ["onnx>=1.17", "onnxruntime-gpu>=1.21", "onnxslim>=0.1.95"]
+onnx-cpu = ["onnx>=1.17", "onnxruntime>=1.21", "onnxslim>=0.1.95"]
+tensorrt = [
+  "onnx>=1.17",
+  "onnxruntime-gpu>=1.21",
+  "onnxslim>=0.1.95",
+  "tensorrt-cu12>=10.6,<11",
+]
+deployment = [
+  "calflops>=0.3.2",
+  "faster-coco-eval>=1.7.2",
+  "onnx>=1.17",
+  "onnxruntime-gpu>=1.21",
+  "onnxslim>=0.1.95",
+  "opencv-python-headless>=4.10",
+  "pycocotools>=2.0.8",
+  "scipy>=1.13,<1.16; python_version < '3.11'",
+  "scipy>=1.16; python_version >= '3.11'",
+  "tabulate>=0.9",
+  "tensorboard>=2.18",
+  "tensorrt-cu12>=10.6,<11",
+]
+dev = ["pytest>=8", "ruff>=0.12"]
+
+[project.scripts]
+meowid = "cat_recognition.cli:main"
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,50 @@
+task: pose
+
+evaluator:
+  type: CocoEvaluator
+  iou_types: [keypoints, ]
+  keypoint_oks_sigmas: &ap10k_sigmas [0.025, 0.025, 0.026, 0.035, 0.035, 0.079, 0.072, 0.062, 0.079, 0.072, 0.062, 0.107, 0.087, 0.089, 0.107, 0.087, 0.089]
+
+# Internal class 0 is unused; class 1 is the generic animal class.
+num_classes: 2
+remap_mscoco_category: False
+
+train_dataloader:
+  type: DataLoader
+  dataset:
+    type: CocoDetection
+    img_folder: /data1/hebei/huzhangchi/AP-10K/ap-10k/data
+    ann_file: /data1/hebei/huzhangchi/AP-10K/ap-10k/annotations/ap10k-trainval-split1-animal.json
+    return_masks: False
+    filter_empty_gt: True
+    num_keypoints: 17
+    transforms:
+      type: Compose
+      ops: ~
+  shuffle: True
+  num_workers: 4
+  total_batch_size: 32
+  drop_last: True
+  pin_memory: True
+  collate_fn:
+    type: BatchImageCollateFunction
+
+val_dataloader:
+  type: DataLoader
+  dataset:
+    type: CocoDetection
+    img_folder: /data1/hebei/huzhangchi/AP-10K/ap-10k/data
+    ann_file: /data1/hebei/huzhangchi/AP-10K/ap-10k/annotations/ap10k-test-split1-animal.json
+    return_masks: False
+    filter_empty_gt: True
+    num_keypoints: 17
+    transforms:
+      type: Compose
+      ops: ~
+  shuffle: False
+  num_workers: 4
+  total_batch_size: 8
+  drop_last: False
+  pin_memory: True
+  collate_fn:
+    type: BatchImageCollateFunction

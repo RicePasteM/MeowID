@@ -1,0 +1,98 @@
+__include__: [
+  '../dataset/ap10k_pose.yml',
+  'ecpose.yml'
+]
+
+output_dir: outputs/ecpose_x_ap10k_trainval_split1
+
+ViTAdapter:
+  name: ecpose_vitsplus
+  embed_dim: 384
+  num_heads: 6
+  proj_dim: 256
+  interaction_indexes: [10, 11]
+  ffn_ratio: 6
+  weights_path: ecvits/ecpose_vitsplus.pth
+
+HybridEncoder:
+  in_channels: [256, 256, 256]
+  hidden_dim: 256
+  depth_mult: 1
+  expansion: 1.5
+  dim_feedforward: 2048
+
+DETRTransformer:
+  hidden_dim: 256
+  dim_feedforward: 2048
+  num_decoder_layers: 4
+  num_body_points: 17
+  keypoint_oks_sigmas: &ap10k_sigmas [0.025, 0.025, 0.026, 0.035, 0.035, 0.079, 0.072, 0.062, 0.079, 0.072, 0.062, 0.107, 0.087, 0.089, 0.107, 0.087, 0.089]
+
+DETRPoseCriterion:
+  num_classes: 2
+  weight_dict: {loss_vfl: 2.0, loss_keypoints: 10.0, loss_oks: 4.0}
+  focal_alpha: 0.25
+  losses: [vfl, keypoints]
+  keypoint_oks_sigmas: *ap10k_sigmas
+  matcher:
+    type: DETRPoseHungarianMatcher
+    cost_class: 2.0
+    cost_keypoints: 10.0
+    cost_oks: 4.0
+    focal_alpha: 0.25
+    num_body_points: 17
+    keypoint_oks_sigmas: *ap10k_sigmas
+  num_body_points: 17
+
+DETRPosePostProcessor:
+  num_select: 60
+  num_body_points: 17
+
+eval_spatial_size: [640, 640]
+epoches: 74
+grad_accum_steps: 1
+print_freq: 20
+checkpoint_freq: 4
+
+optimizer:
+  type: AdamW
+  params:
+    -
+      params: '^(?=.*.backbone)(?!.*(?:norm|bn|bias)).*$'
+      lr: 0.0000025
+    -
+      params: '^(?=.*.backbone)(?=.*(?:norm|bn|bias)).*$'
+      lr: 0.0000025
+      weight_decay: 0.
+    -
+      params: '^(?!.*\.backbone)(?=.*(?:norm|bn|bias)).*$'
+      weight_decay: 0.
+  lr: 0.0005
+  betas: [0.9, 0.999]
+  weight_decay: 0.000125
+
+train_dataloader:
+  dataset:
+    transforms:
+      ops:
+        - {type: PoseMosaic, output_size: 320}
+        - {type: MixUpCopyPaste, mixup_prob: 0.5}
+        - {type: RandomZoomOut, p: 0.5}
+        - {type: RandomHorizontalFlip, flip_pairs: [[0, 1], [5, 8], [6, 9], [7, 10], [11, 14], [12, 15], [13, 16]]}
+        - {type: ColorJitter}
+        - {type: Resize, size: [640, 640]}
+        - {type: ToTensor}
+        - {type: Normalize, mean: [0.485, 0.456, 0.406], std: [0.229, 0.224, 0.225]}
+      mosaic_prob: 0.5
+      policy:
+        epoch: [4, 48, 72]
+  collate_fn:
+    stop_epoch: 72
+
+val_dataloader:
+  total_batch_size: 8
+
+# PyTorch 2.0 on RTX 3090 lacks BF16 nearest-neighbor upsampling, while FP16
+# overflows in the pretrained pose head. Full precision with TF32 is stable.
+use_amp: False
+find_unused_parameters: False

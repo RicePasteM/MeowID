@@ -1,0 +1,50 @@
+task: pose
+
+evaluator:
+  type: CocoEvaluator
+  iou_types: [keypoints, ]
+  keypoint_oks_sigmas: [0.030, 0.030, 0.035, 0.050, 0.050, 0.050, 0.050, 0.050, 0.050]
+
+num_classes: 2
+remap_mscoco_category: False
+
+train_dataloader:
+  type: DataLoader
+  dataset:
+    type: CocoDetection
+    img_folder: /data1/hebei/huzhangchi/catface/images
+    ann_file: /data1/hebei/huzhangchi/catface/train_with_coco_neg.json
+    return_masks: False
+    filter_empty_gt: False
+    num_keypoints: 9
+    transforms:
+      type: Compose
+      ops: ~
+  shuffle: True
+  num_workers: 4
+  total_batch_size: 8
+  drop_last: True
+  pin_memory: True
+  collate_fn:
+    type: BatchImageCollateFunction
+
+
+val_dataloader:
+  type: DataLoader
+  dataset:
+    type: CocoDetection
+    img_folder: /data1/hebei/huzhangchi/catface/images
+    ann_file: /data1/hebei/huzhangchi/catface/test_with_coco_neg.json
+    return_masks: False
+    filter_empty_gt: False
+    num_keypoints: 9
+    transforms:
+      type: Compose
+      ops: ~
+  shuffle: False
+  num_workers: 4
+  total_batch_size: 8
+  drop_last: False
+  pin_memory: True
+  collate_fn:
+    type: BatchImageCollateFunction

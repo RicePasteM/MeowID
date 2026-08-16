@@ -1,0 +1,27 @@
+data:
+  source: split
+  root: data/icw_split
+  roots: {}
+  train:
+    split: train
+    manifest: null
+    batch_size: 32
+    num_workers: 8
+    pin_memory: true
+    drop_last: true
+  val:
+    split: val
+    manifest: null
+    query_manifest: null
+    gallery_manifest: null
+    batch_size: 64
+    num_workers: 8
+    pin_memory: true
+  test:
+    split: test
+    manifest: null
+    query_manifest: null
+    gallery_manifest: null
+    batch_size: 64
+    num_workers: 8
+    pin_memory: true

@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "name": "MeowID-Base",
+  "embedding_dim": 512,
+  "created_at_unix": 1786264952,
+  "models": {
+    "torch": {
+      "recognition": "meowid_base.pth",
+      "pose": "ecpose.pth"
+    },
+    "onnx": {
+      "recognition": "meowid_base.onnx",
+      "pose": "ecpose.onnx"
+    },
+    "tensorrt": {
+      "recognition": "meowid_base.engine",
+      "pose": "ecpose.engine"
+    }
+  },
+  "alignment": "petface_tight_3pt",
+  "face_threshold": 0.4,
+  "face_label": 1,
+  "preprocessing": {
+    "pose": {
+      "image_size": [
+        640,
+        640
+      ],
+      "mean": [
+        0.485,
+        0.456,
+        0.406
+      ],
+      "std": [
+        0.229,
+        0.224,
+        0.225
+      ]
+    },
+    "body": {
+      "image_size": 256,
+      "resize_size": 292,
+      "mean": [
+        0.485,
+        0.456,
+        0.406
+      ],
+      "std": [
+        0.229,
+        0.224,
+        0.225
+      ]
+    },
+    "face": {
+      "image_size": 256,
+      "resize_size": 256,
+      "mean": [
+        0.485,
+        0.456,
+        0.406
+      ],
+      "std": [
+        0.229,
+        0.224,
+        0.225
+      ]
+    }
+  },
+  "routing": {
+    "face_present": "face_embeddings",
+    "face_absent": "body_embeddings",
+    "confidence_fusion": false,
+    "single_body_encoder": true
+  },
+  "artifacts": {
+    "recognition_onnx": {
+      "path": "meowid_base.onnx",
+      "bytes": 702866655,
+      "sha256": "16bc4ab78aba82b531326ca7be5623d0fcbbabccd4fc89afd32adaaf2b316edd"
+    },
+    "pose_onnx": {
+      "path": "ecpose.onnx",
+      "bytes": 206329407,
+      "sha256": "aed358530fd8d0769c1dad678272c169dc3ba12c3c54b2979ead24eefd758d67"
+    },
+    "recognition_tensorrt": {
+      "path": "meowid_base.engine",
+      "bytes": 358793524,
+      "sha256": "55df9690996b21a59cb6a5d9864aed10fb8247ca2f372b7114706eaf919fd92f"
+    },
+    "pose_tensorrt": {
+      "path": "ecpose.engine",
+      "bytes": 115936900,
+      "sha256": "ffb01264df162bce5ff17a96898c6fbdf967b68489addf135c0d42cb48a42b1b"
+    }
+  },
+  "build": {
+    "python": "3.10.20",
+    "torch": "2.4.1+cu124",
+    "repo_root": "/home/lihb/Github/meowId",
+    "onnx": "1.19.0",
+    "onnx_opset": 18,
+    "onnxruntime": "1.23.2",
+    "onnxslim": "0.1.95",
+    "onnxslim_enabled": true,
+    "tensorrt": "10.8.0.43",
+    "tensorrt_fp16": true,
+    "tensorrt_sensitive_layers_fp32": true,
+    "batch_profile": [
+      1,
+      4,
+      16
+    ],
+    "workspace_gib": 8.0,
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "cuda_capability": [
+      8,
+      6
+    ]
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "artifacts": "/home/lihb/Github/hzc_cat_combined/deploy/MeowID-Base",
+  "dataset": "/data1/hebei/huzhangchi/catdata/icw_split/test",
+  "dataset_images": 2846,
+  "file_cache_warmup": {
+    "enabled": true,
+    "bytes": 839331281,
+    "seconds": 0.219602532684803
+  },
+  "backends": {
+    "onnx_gpu": {
+      "backend": "onnx",
+      "device": "cuda:0",
+      "precision": "fp32",
+      "batch_size": 1,
+      "images": 2846,
+      "warmup_images": 20,
+      "model_load_seconds": 2.5434402525424957,
+      "total_timed_seconds": 227.40887761116028,
+      "latency_ms": {
+        "mean": 79.88362600575303,
+        "median": 55.21560646593571,
+        "p90": 161.52785904705524,
+        "p95": 206.73998165875673,
+        "p99": 312.2027896344664,
+        "min": 39.97446596622467,
+        "max": 550.2276159822941
+      },
+      "throughput_images_per_second": 12.514902803690415,
+      "routes": {
+        "face": 2717,
+        "body": 129
+      },
+      "onnx_providers": {
+        "recognition": [
+          "CUDAExecutionProvider",
+          "CPUExecutionProvider"
+        ],
+        "pose": [
+          "CUDAExecutionProvider",
+          "CPUExecutionProvider"
+        ]
+      },
+      "timing_scope": "MeowID.embed(path): cached file read/decode, preprocessing, ECPose, face alignment, body+face embedding, hard routing; excludes model load"
+    }
+  }
+}

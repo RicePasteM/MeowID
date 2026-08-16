@@ -1,0 +1,14 @@
+# Recommended Python version: 3.10 or 3.11
+# If you use NVIDIA GPU training, install the matching PyTorch build from
+# https://pytorch.org/get-started/locally/ first, then run:
+#   pip install -r requirements.txt
+
+numpy>=1.26
+Pillow>=10.0
+PyYAML>=6.0
+safetensors>=0.4.0
+timm>=1.0.20
+transformers>=4.56.0
+torch>=2.2
+torchvision>=0.17
+tqdm>=4.66

@@ -1,0 +1,140 @@
+{
+  "passed": true,
+  "images": [
+    "/data1/hebei/huzhangchi/catdata/icw_split/test/00005883/000000.jpg",
+    "/data1/hebei/huzhangchi/catdata/icw_split/test/00005883/000002.jpg"
+  ],
+  "backends": {
+    "torch": {
+      "backend": "torch",
+      "info": {
+        "backend": "torch",
+        "device": "cuda:0",
+        "recognition_model": "/home/lihb/Github/hzc_cat_combined/outputs/MeowID-Base/checkpoints/best_deployment.pth",
+        "pose_model": "/home/lihb/Github/hzc_cat_combined/EdgeCrafter/ecpose/outputs/ecpose_x_cat_face_mixed/best_stg2.pth",
+        "alignment": "petface_tight_3pt",
+        "face_threshold": 0.4,
+        "face_label": 1,
+        "registry": {
+          "cats": 0,
+          "vectors": 0,
+          "body_vectors": 0,
+          "face_vectors": 0
+        }
+      },
+      "providers": {},
+      "latency_ms": {
+        "median_batch": 177.13439464569092,
+        "median_per_image": 88.56719732284546,
+        "samples": [
+          176.72301456332207,
+          177.9909022152424,
+          177.13439464569092
+        ]
+      }
+    },
+    "onnx": {
+      "backend": "onnx",
+      "info": {
+        "backend": "onnx",
+        "device": "cuda:0",
+        "recognition_model": "/home/lihb/Github/hzc_cat_combined/deploy/MeowID-Base/meowid_base.onnx",
+        "pose_model": "/home/lihb/Github/hzc_cat_combined/deploy/MeowID-Base/ecpose.onnx",
+        "alignment": "petface_tight_3pt",
+        "face_threshold": 0.4,
+        "face_label": 1,
+        "registry": {
+          "cats": 0,
+          "vectors": 0,
+          "body_vectors": 0,
+          "face_vectors": 0
+        }
+      },
+      "providers": {
+        "recognition": [
+          "CUDAExecutionProvider",
+          "CPUExecutionProvider"
+        ],
+        "pose": [
+          "CUDAExecutionProvider",
+          "CPUExecutionProvider"
+        ]
+      },
+      "latency_ms": {
+        "median_batch": 165.25131091475487,
+        "median_per_image": 82.62565545737743,
+        "samples": [
+          169.55284401774406,
+          165.25131091475487,
+          164.25402835011482
+        ]
+      }
+    },
+    "tensorrt": {
+      "backend": "tensorrt",
+      "info": {
+        "backend": "tensorrt",
+        "device": "cuda:0",
+        "recognition_model": "/home/lihb/Github/hzc_cat_combined/deploy/MeowID-Base/meowid_base.engine",
+        "pose_model": "/home/lihb/Github/hzc_cat_combined/deploy/MeowID-Base/ecpose.engine",
+        "alignment": "petface_tight_3pt",
+        "face_threshold": 0.4,
+        "face_label": 1,
+        "registry": {
+          "cats": 0,
+          "vectors": 0,
+          "body_vectors": 0,
+          "face_vectors": 0
+        }
+      },
+      "providers": {},
+      "latency_ms": {
+        "median_batch": 135.097436606884,
+        "median_per_image": 67.548718303442,
+        "samples": [
+          136.9190588593483,
+          133.7861344218254,
+          135.097436606884
+        ]
+      }
+    }
+  },
+  "comparisons_to_torch": {
+    "onnx": [
+      {
+        "source": "/data1/hebei/huzhangchi/catdata/icw_split/test/00005883/000000.jpg",
+        "route_match": true,
+        "body_cosine": 0.9999993696041483,
+        "face_cosine": 0.9999270424355284,
+        "keypoint_max_abs_px": 0.2691650390625,
+        "passed": true
+      },
+      {
+        "source": "/data1/hebei/huzhangchi/catdata/icw_split/test/00005883/000002.jpg",
+        "route_match": true,
+        "body_cosine": 0.9999993339125167,
+        "face_cosine": null,
+        "keypoint_max_abs_px": null,
+        "passed": true
+      }
+    ],
+    "tensorrt": [
+      {
+        "source": "/data1/hebei/huzhangchi/catdata/icw_split/test/00005883/000000.jpg",
+        "route_match": true,
+        "body_cosine": 0.9999394933543648,
+        "face_cosine": 0.9957572844050592,
+        "keypoint_max_abs_px": 3.556396484375,
+        "passed": true
+      },
+      {
+        "source": "/data1/hebei/huzhangchi/catdata/icw_split/test/00005883/000002.jpg",
+        "route_match": true,
+        "body_cosine": 0.9999438824269894,
+        "face_cosine": null,
+        "keypoint_max_abs_px": null,
+        "passed": true
+      }
+    ]
+  }
+}

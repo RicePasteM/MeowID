@@ -1,0 +1,169 @@
+experiment:
+  name: baseline
+  output_dir: outputs/baseline
+  seed: 42
+  deterministic: false
+
+model:
+  embedding_dim: 512
+  dropout: 0.0
+  neck:
+    name: linear_bn
+    hidden_dim: null
+  backbone:
+    backend: timm
+    name: swinv2_tiny_window8_256.ms_in1k
+    pretrained: true
+    pretrained_ckpt: null
+    feature_mode: auto
+    drop_path_rate: 0.1
+    drop_rate: 0.0
+    freeze_epochs: 0
+    unfreeze_last_n_blocks: 0
+    full_unfreeze_epoch: 0
+  pool:
+    name: gem
+    p: 3.0
+    eps: 1.0e-6
+    trainable_p: true
+    gate_hidden_dim: null
+  head:
+    name: arcface
+    enabled: true
+    scale: 64.0
+    margin: 0.5
+    easy_margin: false
+    ls_eps: 0.0
+    num_subcenters: 3
+
+data:
+  source: manifest
+  root: data
+  roots: {}
+  image_key: image_path
+  cat_id_key: cat_id
+  label_key: label
+  dataset_name_key: dataset_name
+  dataset_root_key: dataset_root
+  transforms:
+    train:
+      image_size: 256
+      crop_scale: [0.6, 1.0]
+      crop_ratio: [0.75, 1.3333333333]
+      affine:
+        prob: 0.0
+      perspective:
+        prob: 0.0
+      horizontal_flip_prob: 0.5
+      color_jitter:
+        brightness: 0.35
+        contrast: 0.35
+        saturation: 0.35
+        hue: 0.08
+      gaussian_blur:
+        prob: 0.0
+      elastic_transform:
+        prob: 0.2
+        alpha: 60.0
+        sigma: 6.0
+      random_erasing:
+        prob: 0.25
+        scale: [0.02, 0.18]
+        ratio: [0.3, 3.3]
+        value: random
+      normalize:
+        mean: [0.485, 0.456, 0.406]
+        std: [0.229, 0.224, 0.225]
+    eval:
+      image_size: 256
+      resize_size: 292
+      normalize:
+        mean: [0.485, 0.456, 0.406]
+        std: [0.229, 0.224, 0.225]
+  train:
+    manifest: manifests/train.csv
+    batch_size: 32
+    sampler:
+      name: default
+    num_workers: 8
+    pin_memory: true
+    drop_last: true
+  val:
+    manifest: manifests/val.csv
+    query_manifest: null
+    gallery_manifest: null
+    batch_size: 64
+    num_workers: 8
+    pin_memory: true
+  test:
+    query_manifest: manifests/test_query.csv
+    gallery_manifest: manifests/test_gallery.csv
+    batch_size: 64
+    num_workers: 8
+    pin_memory: true
+
+train:
+  epochs: 50
+  amp: true
+  accumulation_steps: 1
+  grad_clip_norm: 5.0
+  label_smoothing: 0.0
+  aux_loss:
+    name: none
+    weight: 0.0
+  log_interval: 20
+  val_interval: 1
+  save_interval: 1
+  monitor: mAP
+  monitor_mode: max
+  monitor_aggregation: logsumexp
+  test_after_fit: false
+  test_checkpoint_name: best.pth
+  resume: null
+  find_unused_parameters: false
+
+optimizer:
+  name: adamw
+  lr: 0.0003
+  backbone_lr_multiplier: 1.0
+  pool_lr_multiplier: 1.0
+  embedding_lr_multiplier: 1.0
+  head_lr_multiplier: 1.0
+  weight_decay: 0.05
+  betas: [0.9, 0.999]
+
+scheduler:
+  name: cosine
+  warmup_epochs: 3
+  warmup_start_factor: 0.1
+  min_lr: 1.0e-6
+
+distributed:
+  backend: nccl
+  sync_bn: false
+
+evaluation:
+  group_by: cat
+  aggregation: logsumexp
+  compare_aggregations: []
+  topk: [1, 0.05, 0.5]
+
+retrieval:
+  top_k: 5
+  threshold: 0.65
+  aggregation: logsumexp
+
+debug:
+  train_batch_viz:
+    enabled: false
+    num_epochs: 3
+    num_steps: 5
+    max_images: 16
+    nrow: 4
+    prefix: train_batch_viz_
+  eval_case_viz:
+    enabled: false
+    num_cases: 5
+    top_k: 5
+    image_size: 220
+    seed: 42

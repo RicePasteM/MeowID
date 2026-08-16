@@ -1,0 +1,38 @@
+{
+  "artifacts": "/home/lihb/Github/hzc_cat_combined/deploy/MeowID-Base",
+  "dataset": "/data1/hebei/huzhangchi/catdata/icw_split/test",
+  "dataset_images": 2846,
+  "file_cache_warmup": {
+    "enabled": true,
+    "bytes": 839331281,
+    "seconds": 0.2093447633087635
+  },
+  "backends": {
+    "torch": {
+      "backend": "torch",
+      "device": "cuda:0",
+      "precision": "fp32",
+      "batch_size": 1,
+      "images": 2846,
+      "warmup_images": 20,
+      "model_load_seconds": 6.800998952239752,
+      "total_timed_seconds": 268.22725542262197,
+      "latency_ms": {
+        "mean": 94.22724828312536,
+        "median": 72.12342135608196,
+        "p90": 164.25617784261703,
+        "p95": 209.54628102481365,
+        "p99": 319.4826636463405,
+        "min": 55.113065987825394,
+        "max": 542.3572137951851
+      },
+      "throughput_images_per_second": 10.610405700628034,
+      "routes": {
+        "face": 2717,
+        "body": 129
+      },
+      "onnx_providers": {},
+      "timing_scope": "MeowID.embed(path): cached file read/decode, preprocessing, ECPose, face alignment, body+face embedding, hard routing; excludes model load"
+    }
+  }
+}

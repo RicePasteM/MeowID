@@ -1,0 +1,132 @@
+{
+  "artifacts": "/home/lihb/Github/hzc_cat_combined/deploy/MeowID-Base",
+  "dataset": "/data1/hebei/huzhangchi/catdata/icw_split/test",
+  "dataset_images": 10,
+  "file_cache_warmup": {
+    "enabled": true,
+    "bytes": 7805742,
+    "seconds": 0.0027097798883914948
+  },
+  "backends": {
+    "torch": {
+      "backend": "torch",
+      "device": "cuda:0",
+      "precision": "fp32",
+      "batch_size": 1,
+      "images": 10,
+      "warmup_images": 3,
+      "model_load_seconds": 6.4095170721411705,
+      "total_timed_seconds": 1.4911023043096066,
+      "latency_ms": {
+        "mean": 149.03882183134556,
+        "median": 150.66348388791084,
+        "p90": 201.15734487771985,
+        "p95": 233.35465900599948,
+        "p99": 259.1125103086233,
+        "min": 69.57297399640083,
+        "max": 265.55197313427925
+      },
+      "throughput_images_per_second": 6.70644795538029,
+      "routes": {
+        "face": 10,
+        "body": 0
+      },
+      "onnx_providers": {},
+      "timing_scope": "MeowID.embed(path): cached file read/decode, preprocessing, ECPose, face alignment, body+face embedding, hard routing; excludes model load"
+    },
+    "onnx_cpu": {
+      "backend": "onnx",
+      "device": "cpu",
+      "precision": "fp32",
+      "batch_size": 1,
+      "images": 10,
+      "warmup_images": 3,
+      "model_load_seconds": 2.3257177136838436,
+      "total_timed_seconds": 5.701952088624239,
+      "latency_ms": {
+        "mean": 570.1301980763674,
+        "median": 587.3731262981892,
+        "p90": 619.616112485528,
+        "p95": 650.2466829493641,
+        "p99": 674.7511393204331,
+        "min": 474.26939755678177,
+        "max": 680.8772534132004
+      },
+      "throughput_images_per_second": 1.7537853430846329,
+      "routes": {
+        "face": 10,
+        "body": 0
+      },
+      "onnx_providers": {
+        "recognition": [
+          "CPUExecutionProvider"
+        ],
+        "pose": [
+          "CPUExecutionProvider"
+        ]
+      },
+      "timing_scope": "MeowID.embed(path): cached file read/decode, preprocessing, ECPose, face alignment, body+face embedding, hard routing; excludes model load"
+    },
+    "onnx_gpu": {
+      "backend": "onnx",
+      "device": "cuda:0",
+      "precision": "fp32",
+      "batch_size": 1,
+      "images": 10,
+      "warmup_images": 3,
+      "model_load_seconds": 1.9850331246852875,
+      "total_timed_seconds": 1.3885311931371689,
+      "latency_ms": {
+        "mean": 138.7827318161726,
+        "median": 143.3432102203369,
+        "p90": 201.49743072688577,
+        "p95": 228.52426897734398,
+        "p99": 250.14573957771063,
+        "min": 53.98866534233093,
+        "max": 255.55110722780228
+      },
+      "throughput_images_per_second": 7.201854772456761,
+      "routes": {
+        "face": 10,
+        "body": 0
+      },
+      "onnx_providers": {
+        "recognition": [
+          "CUDAExecutionProvider",
+          "CPUExecutionProvider"
+        ],
+        "pose": [
+          "CUDAExecutionProvider",
+          "CPUExecutionProvider"
+        ]
+      },
+      "timing_scope": "MeowID.embed(path): cached file read/decode, preprocessing, ECPose, face alignment, body+face embedding, hard routing; excludes model load"
+    },
+    "tensorrt": {
+      "backend": "tensorrt",
+      "device": "cuda:0",
+      "precision": "fp16",
+      "batch_size": 1,
+      "images": 10,
+      "warmup_images": 3,
+      "model_load_seconds": 0.9956795908510685,
+      "total_timed_seconds": 1.1561541110277176,
+      "latency_ms": {
+        "mean": 115.5241534113884,
+        "median": 123.11173230409622,
+        "p90": 165.51814787089822,
+        "p95": 194.75294370204205,
+        "p99": 218.1407803669572,
+        "min": 32.6128825545311,
+        "max": 223.98773953318596
+      },
+      "throughput_images_per_second": 8.64936594924261,
+      "routes": {
+        "face": 10,
+        "body": 0
+      },
+      "onnx_providers": {},
+      "timing_scope": "MeowID.embed(path): cached file read/decode, preprocessing, ECPose, face alignment, body+face embedding, hard routing; excludes model load"
+    }
+  }
+}

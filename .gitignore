@@ -1,0 +1,21 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+build/
+dist/
+*.egg-info/
+registries/
+outputs/
+data/
+*.log
+docs/
+
+# Model binaries are delivered beside the repository but should be stored in
+# Git LFS or a model registry instead of normal Git objects.
+artifacts/**/*.pth
+artifacts/**/*.safetensors
+artifacts/**/*.onnx
+artifacts/**/*.engine
+artifacts/**/*.plan
