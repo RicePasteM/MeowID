@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import importlib.util
 import inspect
+from pathlib import Path
 
 import numpy as np
 import torch
@@ -30,6 +32,18 @@ class TinyExpert(nn.Module):
     def encode(self, images: torch.Tensor) -> torch.Tensor:
         self.calls += 1
         return F.normalize(self.projection(images), dim=1)
+
+
+def test_ecseg_dist_utils_uses_pytorch_dataloader() -> None:
+    module_path = (
+        Path(__file__).resolve().parents[1]
+        / "third_party/EdgeCrafter/ecdetseg/engine/misc/dist_utils.py"
+    )
+    spec = importlib.util.spec_from_file_location("_ecseg_dist_utils_test", module_path)
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    assert module.DataLoader is torch.utils.data.DataLoader
 
 
 def _result(route: str, seed: int) -> EmbeddingResult:

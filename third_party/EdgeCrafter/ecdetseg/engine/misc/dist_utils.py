@@ -19,10 +19,7 @@ import torch.nn as nn
 from torch.distributed.fsdp import FullyShardedDataParallel as FSDP
 from torch.nn.parallel import DataParallel as DP
 from torch.nn.parallel import DistributedDataParallel as DDP
-from torch.utils.data import DistributedSampler
-
-# from torch.utils.data.dataloader import DataLoader
-from ..data import DataLoader
+from torch.utils.data import DataLoader, DistributedSampler
 
 
 def setup_distributed(print_rank: int=0, print_method: str='builtin', seed: int=None, ):
