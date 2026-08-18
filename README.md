@@ -50,7 +50,7 @@ MeowID combines separately parameterized face and whole-cat experts in a face-pr
 ## Method pipeline
 
 <p align="center">
-  <img src="assets/meowid-pipeline.png" alt="MeowID method pipeline" width="100%">
+  <img src="assets/fig_main.jpg" alt="MeowID method pipeline" width="100%">
 </p>
 
 <p align="center"><em>MeowID uses face-priority routing, dual recognition experts, validation-guided whole-cat hint fusion, and route-specific retrieval galleries.</em></p>
