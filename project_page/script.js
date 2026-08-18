@@ -82,6 +82,7 @@ const chineseTranslations = {
   datasetTitle: '面向真实场景猫个体检索的大规模基准数据集。',
   datasetBody: 'ICW 汇集自六个公开的领养与救助平台，并按身份严格划分数据。每只猫包含多次观测，覆盖姿态、视角、背景、光照、拍摄设备和遮挡等真实变化。',
   viewHuggingFace: '前往 Hugging Face',
+  viewModelScope: '前往 ModelScope', 
   statIdentities: '只猫',
   statImages: '张高质量图像',
   statFaceAvailable: '面部可用',
