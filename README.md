@@ -117,14 +117,6 @@ Large model binaries are hosted outside regular Git and mirrored in both reposit
 - [Hugging Face — RicePasteM/MeowID-Base](https://huggingface.co/RicePasteM/MeowID-Base)
 - [ModelScope — RicePasteM/MeowID-Base](https://modelscope.cn/models/RicePasteM/MeowID-Base)
 
-Verify model files before inference or training:
-
-```bash
-(cd artifacts/MeowID-Base && sha256sum -c SHA256SUMS)
-(cd artifacts/ECSeg && sha256sum -c SHA256SUMS)
-(cd artifacts/training_init && sha256sum -c SHA256SUMS)
-```
-
 TensorRT engines are tied to the TensorRT version and GPU architecture used to build them. Rebuild an engine from the ONNX artifacts when deploying to a different environment.
 
 ## Quick start
@@ -367,8 +359,6 @@ bash train_meowid_base.sh \
   data.face_root=/path/to/icw_catface_aligned_petface_tight_v1
 ```
 
-The primary experiment configuration is [`configs/experiments/meowid_base.yaml`](configs/experiments/meowid_base.yaml). See the [training guide](docs/TRAINING.md) for initialization requirements, checkpoint selection, evaluation, and resume behavior.
-
 ## Validation
 
 Run the unit tests:
@@ -385,33 +375,3 @@ python tools/verify_deployment.py \
   --backend tensorrt \
   --device cuda:0
 ```
-
-The [validation report](docs/VALIDATION_REPORT.md) records the reference environment and completed smoke, export, parity, registry, and training-pipeline checks.
-
-## Repository layout
-
-```text
-.
-├── artifacts/                  # Manifests, checksums, and local model files
-├── configs/                    # Dataset, model, and experiment configuration
-├── docs/                       # Training, deployment, cropping, and validation notes
-├── examples/                   # Minimal runnable examples
-├── src/cat_recognition/        # Public API, inference backends, registry, and training code
-├── tests/                      # Deployment and training-pipeline tests
-├── third_party/EdgeCrafter/    # ECPose and ECSeg integrations
-├── tools/                      # Export, verification, preparation, evaluation, and benchmark tools
-└── train_meowid_base.sh        # Distributed training launcher
-```
-
-## Operational notes and limitations
-
-- Face and whole-cat galleries represent different embedding spaces. Do not merge them or compare their scores directly.
-- The bundled registry performs exact in-memory search and is intended for local or moderate-size galleries. Integrate a vector index for larger deployments.
-- Registry persistence does not provide cross-process file locking. Serialize writes when multiple workers share one registry.
-- Open-set thresholds must be calibrated for the deployment domain and monitored as the gallery changes.
-- TensorRT engines should be rebuilt after changing GPU architecture, TensorRT version, model artifacts, or batch profiles.
-- ECSeg-X cropping currently uses the PyTorch backend.
-
-## License
-
-A project-level license has not yet been added to this repository. Until licensing terms are published, do not assume permission to copy, redistribute, or use the project beyond the rights granted by applicable law. Third-party components remain subject to their respective licenses.
