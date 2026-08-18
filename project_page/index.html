@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="MeowID is a dual-expert retrieval system for individual cat identification in unconstrained photographs."
+    />
+    <meta name="theme-color" content="#061343" />
+    <title>MeowID — A Dual-Expert Retrieval System for Individual Cat Identification</title>
+    <link rel="icon" href="favicon.ico?v=20260815" sizes="any" />
+    <link rel="stylesheet" href="styles.css?v=20260815-14" />
+    <script defer src="assets/vendor/lucide.min.js"></script>
+    <script defer src="script.js?v=20260815-19"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main" data-i18n="skipContent">Skip to content</a>
+
+    <div class="announcement">
+      <span class="announcement-dot" aria-hidden="true"></span>
+      <span data-i18n="announcement">ICW benchmark: 82,791 images across 19,877 individual cats.</span>
+      <a href="#dataset"><span data-i18n="datasetDetails">Dataset details</span> <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+    </div>
+
+    <header class="site-header" id="top">
+      <nav class="nav shell" aria-label="Primary navigation" data-i18n-aria="primaryNavigation">
+        <a class="brand" href="#top" aria-label="MeowID home" data-i18n-aria="meowidHome">
+          <img src="assets/logo.png" alt="MeowID" />
+        </a>
+        <button class="menu-button" type="button" aria-expanded="false" aria-controls="nav-links">
+          <i data-lucide="menu" aria-hidden="true"></i>
+          <span class="sr-only" data-i18n="toggleMenu">Toggle menu</span>
+        </button>
+        <div class="nav-links" id="nav-links">
+          <a href="#method" data-i18n="navMethod">Method</a>
+          <a href="#dataset" data-i18n="navDataset">Dataset</a>
+          <a href="#results" data-i18n="navResults">Results</a>
+          <a class="nav-pill" href="assets/MeowID.pdf" target="_blank" rel="noreferrer" data-i18n="readPaper">Read the paper</a>
+          <div class="language-switcher" role="group" aria-label="Language" data-i18n-aria="languageSelector">
+            <button type="button" data-language="en" aria-pressed="true">EN</button>
+            <button type="button" data-language="zh-CN" aria-pressed="false">简中</button>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="interactive-teaser">
+        <div class="teaser-field" aria-label="Interactive field of cat observations" data-i18n-aria="teaserField">
+          <button class="teaser-cat cat-01" type="button" data-identity="icw-00001724"><img src="assets/icw-stickers/observation-01.png" alt="ICW cat observation 1" /></button>
+          <button class="teaser-cat cat-02" type="button" data-identity="icw-00002628"><img src="assets/icw-stickers/observation-02.png" alt="ICW cat observation 2" /></button>
+          <button class="teaser-cat cat-03" type="button" data-identity="icw-00008030"><img src="assets/icw-stickers/observation-03.png" alt="ICW cat observation 3" /></button>
+          <button class="teaser-cat cat-04" type="button" data-identity="icw-00009142"><img src="assets/icw-stickers/observation-04.png" alt="ICW cat observation 4" /></button>
+          <button class="teaser-cat cat-05" type="button" data-identity="icw-00009906"><img src="assets/icw-stickers/observation-05.png" alt="ICW cat observation 5" /></button>
+          <button class="teaser-cat cat-06" type="button" data-identity="icw-00011467"><img src="assets/icw-stickers/observation-06.png" alt="ICW cat observation 6" /></button>
+          <button class="teaser-cat cat-07" type="button" data-identity="icw-00011617"><img src="assets/icw-stickers/observation-07.png" alt="ICW cat observation 7" /></button>
+          <button class="teaser-cat cat-08" type="button" data-identity="icw-00013645"><img src="assets/icw-stickers/observation-08.png" alt="ICW cat observation 8" /></button>
+          <button class="teaser-cat cat-09" type="button" data-identity="icw-00015658"><img src="assets/icw-stickers/observation-09.png" alt="ICW cat observation 9" /></button>
+          <button class="teaser-cat cat-10" type="button" data-identity="icw-00016103"><img src="assets/icw-stickers/observation-10.png" alt="ICW cat observation 10" /></button>
+          <button class="teaser-cat cat-11" type="button" data-identity="icw-00017247"><img src="assets/icw-stickers/observation-11.png" alt="ICW cat observation 11" /></button>
+          <button class="teaser-cat cat-12" type="button" data-identity="icw-00017428"><img src="assets/icw-stickers/observation-12.png" alt="ICW cat observation 12" /></button>
+          <button class="teaser-cat cat-13" type="button" data-identity="icw-00017428"><img src="assets/icw-stickers/observation-13.png" alt="A second photograph of the cat in observation 12" /></button>
+          <button class="teaser-cat cat-14" type="button" data-identity="icw-00017428"><img src="assets/icw-stickers/observation-14.png" alt="A third photograph of the cat in observation 12" /></button>
+          <button class="teaser-cat cat-15" type="button" data-identity="icw-00017247"><img src="assets/icw-stickers/observation-15.png" alt="A second photograph of the cat in observation 11" /></button>
+          <button class="teaser-cat cat-16" type="button" data-identity="icw-00017247"><img src="assets/icw-stickers/observation-16.png" alt="A third photograph of the cat in observation 11" /></button>
+          <button class="teaser-cat cat-17" type="button" data-identity="icw-00001724"><img src="assets/icw-stickers/observation-17.png" alt="A second photograph of the cat in observation 1" /></button>
+          <button class="teaser-cat cat-18" type="button" data-identity="icw-00002628"><img src="assets/icw-stickers/observation-18.png" alt="A second photograph of the cat in observation 2" /></button>
+          <button class="teaser-cat cat-19" type="button" data-identity="icw-00008030"><img src="assets/icw-stickers/observation-19.png" alt="A second photograph of the cat in observation 3" /></button>
+          <button class="teaser-cat cat-20" type="button" data-identity="icw-00009142"><img src="assets/icw-stickers/observation-20.png" alt="A second photograph of the cat in observation 4" /></button>
+          <button class="teaser-cat cat-21" type="button" data-identity="icw-00009906"><img src="assets/icw-stickers/observation-21.png" alt="A second photograph of the cat in observation 5" /></button>
+          <button class="teaser-cat cat-22" type="button" data-identity="icw-00011467"><img src="assets/icw-stickers/observation-22.png" alt="A second photograph of the cat in observation 6" /></button>
+          <button class="teaser-cat cat-23" type="button" data-identity="icw-00011617"><img src="assets/icw-stickers/observation-23.png" alt="A second photograph of the cat in observation 7" /></button>
+          <button class="teaser-cat cat-24" type="button" data-identity="icw-00013645"><img src="assets/icw-stickers/observation-24.png" alt="A second photograph of the cat in observation 8" /></button>
+          <button class="teaser-cat cat-25" type="button" data-identity="icw-00001724"><img src="assets/icw-stickers/observation-25.png" alt="A third photograph of the cat in observation 1" /></button>
+          <button class="teaser-cat cat-26" type="button" data-identity="icw-00002628"><img src="assets/icw-stickers/observation-26.png" alt="A third photograph of the cat in observation 2" /></button>
+          <button class="teaser-cat cat-27" type="button" data-identity="icw-00008030"><img src="assets/icw-stickers/observation-27.png" alt="A third photograph of the cat in observation 3" /></button>
+          <button class="teaser-cat cat-28" type="button" data-identity="icw-00009142"><img src="assets/icw-stickers/observation-28.png" alt="A third photograph of the cat in observation 4" /></button>
+          <button class="teaser-cat cat-29" type="button" data-identity="icw-00009906"><img src="assets/icw-stickers/observation-29.png" alt="A third photograph of the cat in observation 5" /></button>
+          <button class="teaser-cat cat-30" type="button" data-identity="icw-00011467"><img src="assets/icw-stickers/observation-30.png" alt="A third photograph of the cat in observation 6" /></button>
+          <button class="teaser-cat cat-31" type="button" data-identity="icw-00011617"><img src="assets/icw-stickers/observation-31.png" alt="A third photograph of the cat in observation 7" /></button>
+          <button class="teaser-cat cat-32" type="button" data-identity="icw-00013645"><img src="assets/icw-stickers/observation-32.png" alt="A third photograph of the cat in observation 8" /></button>
+          <button class="teaser-cat cat-33" type="button" data-identity="icw-00015658"><img src="assets/icw-stickers/observation-33.png" alt="A second photograph of the cat in observation 9" /></button>
+          <button class="teaser-cat cat-34" type="button" data-identity="icw-00015658"><img src="assets/icw-stickers/observation-34.png" alt="A third photograph of the cat in observation 9" /></button>
+          <button class="teaser-cat cat-35" type="button" data-identity="icw-00016103"><img src="assets/icw-stickers/observation-35.png" alt="A second photograph of the cat in observation 10" /></button>
+          <button class="teaser-cat cat-36" type="button" data-identity="icw-00016103"><img src="assets/icw-stickers/observation-36.png" alt="A third photograph of the cat in observation 10" /></button>
+        </div>
+
+        <div class="shell hero-center reveal">
+          <div class="meowid-hub" id="meowid-hub">
+            <img src="assets/logo-on-dark.png" alt="MeowID" />
+          </div>
+          <h1><span data-i18n="heroTitle1">A Dual-Expert Retrieval System</span><em data-i18n="heroTitle2">for Individual Cat Identification</em></h1>
+          <!-- <p class="hero-lead">Face-priority retrieval with complementary whole-cat context.</p> -->
+          <div class="hero-actions">
+            <a class="button button-primary" href="assets/MeowID.pdf" target="_blank" rel="noreferrer"><i data-lucide="file-text" aria-hidden="true"></i><span data-i18n="readPaperShort">Read paper</span></a>
+            <a class="button button-dark" href="https://github.com/choucisan" target="_blank" rel="noreferrer"><i data-lucide="code-xml" aria-hidden="true"></i><span data-i18n="code">Code</span></a>
+          </div>
+          <div class="hero-credits">
+            <p class="authors" data-i18n-html="authors"><strong>Zhangchi Hu</strong>, Yi Shang, Haocheng Yang, Qiwei Hu, Yuzheng Li</p>
+            <p class="affiliations-line" aria-label="Author affiliations" data-i18n-aria="authorAffiliations">
+              <span data-i18n="affiliationUstc">University of Science and Technology of China</span>
+              <span data-i18n="affiliationHfut">Hefei University of Technology</span>
+              <span data-i18n="affiliationSysu">Sun Yat-sen University</span>
+              <span data-i18n="affiliationNwpu">Northwestern Polytechnical University</span>
+              <span data-i18n="affiliationBjfu">Beijing Forestry University</span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="metric-strip" aria-label="Key results" data-i18n-aria="keyResults">
+        <div class="shell metrics-grid">
+          <article class="metric reveal">
+            <div class="metric-value">75.93<span>%</span></div>
+            <div><strong data-i18n="metricTop1">Top-1 accuracy</strong><span data-i18n="metricIcwSet">ICW full test set</span></div>
+          </article>
+          <article class="metric reveal" data-delay="80">
+            <div class="metric-value">80.45<span>%</span></div>
+            <div><strong data-i18n="metricMap">Retrieval mAP</strong><span data-i18n="metricUnseen">Across unseen identities</span></div>
+          </article>
+          <article class="metric reveal" data-delay="160">
+            <div class="metric-value">94.94<span>%</span></div>
+            <div><strong data-i18n="metricAuc">Average AUC</strong><span data-i18n="metricFamilies">13 PetFace families</span></div>
+          </article>
+          <article class="metric reveal" data-delay="240">
+            <div class="metric-value">60<span>ms</span></div>
+            <div><strong data-i18n="metricLatency">End-to-end</strong><span>TensorRT FP16</span></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section intro-section">
+        <div class="shell intro-grid">
+          <div class="section-heading reveal">
+            <div class="eyebrow"><span data-i18n="whyMeowid">Why MeowID</span></div>
+            <h2 data-i18n="introTitle">Complementary cues across visual scales.</h2>
+          </div>
+          <div class="intro-copy reveal" data-delay="120">
+            <p class="large-copy" data-i18n="introLead">
+              Individual appearance varies with imaging conditions, making a single representation insufficient to capture all identity cues.
+            </p>
+            <p data-i18n="introBody">
+              MeowID models facial detail and whole-cat appearance with separately parameterized experts. Facial
+              evidence is prioritized when alignment succeeds; global appearance supplies complementary context
+              and a robust fallback route.
+            </p>
+            <div class="principle-row">
+              <span><i></i><b data-i18n="principleFace">Face-priority routing</b></span>
+              <span><i></i><b data-i18n="principleOpen">Open-set enrollment</b></span>
+              <span><i></i><b data-i18n="principleGallery">Route-specific galleries</b></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section method-section" id="method">
+        <div class="shell">
+          <div class="section-heading centered reveal">
+            <div class="eyebrow"><span data-i18n="navMethod">Method</span></div>
+            <h2 data-i18n="methodTitle">Face-priority retrieval with robust fallback.</h2>
+            <p data-i18n="methodLead">The system preserves fine-grained facial discrimination while retaining coverage for unconstrained images.</p>
+          </div>
+
+          <div class="route-lab reveal">
+            <div class="route-lab-head">
+              <div>
+                <span class="mini-label" data-i18n="routingBehavior">Routing behavior</span>
+                <h3 data-i18n="selectFaceAvailability">Select face availability</h3>
+                <p class="route-selection-copy" aria-live="polite" data-i18n="routeFaceCopy">Face evidence is fused with a whole-cat hint before face-gallery retrieval.</p>
+              </div>
+              <div class="segmented" role="group" aria-label="Choose face availability" data-i18n-aria="chooseFaceAvailability">
+                <button class="route-toggle active" type="button" data-route="face" aria-pressed="true" data-i18n="faceAvailable">Face available</button>
+                <button class="route-toggle" type="button" data-route="body" aria-pressed="false" data-i18n="faceUnavailable">Face unavailable</button>
+              </div>
+            </div>
+            <div class="route-flow-scroll" tabindex="0" aria-label="Interactive MeowID retrieval flow" data-i18n-aria="interactiveFlow">
+              <div class="route-map" data-active-route="face" aria-label="Face-available retrieval route">
+                <svg class="route-flow-svg" viewBox="0 0 1200 400" role="img" aria-label="Directional connections between retrieval stages" data-i18n-aria="flowConnections">
+                  <defs>
+                    <marker id="flow-arrow-face" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
+                      <path d="M0,0 L9,4.5 L0,9 Z" fill="#10bda4"></path>
+                    </marker>
+                    <marker id="flow-arrow-body" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
+                      <path d="M0,0 L9,4.5 L0,9 Z" fill="#1778c8"></path>
+                    </marker>
+                    <filter id="flow-glow-face" x="-40%" y="-40%" width="180%" height="180%">
+                      <feGaussianBlur stdDeviation="3" result="blur"></feGaussianBlur>
+                      <feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+                    </filter>
+                    <filter id="flow-glow-body" x="-40%" y="-40%" width="180%" height="180%">
+                      <feGaussianBlur stdDeviation="3" result="blur"></feGaussianBlur>
+                      <feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+                    </filter>
+                  </defs>
+
+                  <g class="flow-connection flow-face">
+                    <path class="flow-track" d="M180 206 H218 V317 H240"></path>
+                    <path class="flow-light" d="M180 206 H218 V317 H240"></path>
+                  </g>
+                  <g class="flow-connection flow-face">
+                    <path class="flow-track" d="M372 317 H408"></path>
+                    <path class="flow-light" d="M372 317 H408"></path>
+                  </g>
+                  <g class="flow-connection flow-face">
+                    <path class="flow-track" d="M588 317 H660"></path>
+                    <path class="flow-light" d="M588 317 H660"></path>
+                  </g>
+                  <g class="flow-connection flow-face">
+                    <path class="flow-track" d="M840 317 H876"></path>
+                    <path class="flow-light" d="M840 317 H876"></path>
+                  </g>
+                  <g class="flow-connection flow-face">
+                    <path class="flow-track" d="M1032 317 H1044 V260 H1056"></path>
+                    <path class="flow-light" d="M1032 317 H1044 V260 H1056"></path>
+                  </g>
+
+                  <g class="flow-connection flow-hint flow-body">
+                    <path class="flow-track" d="M180 206 H218 V99 H408"></path>
+                    <path class="flow-light" d="M180 206 H218 V99 H408"></path>
+                  </g>
+                  <g class="flow-connection flow-hint">
+                    <path class="flow-track" d="M588 99 H625 V280 H660"></path>
+                    <path class="flow-light" d="M588 99 H625 V280 H660"></path>
+                  </g>
+                  <g class="flow-connection flow-body">
+                    <path class="flow-track" d="M588 99 H876"></path>
+                    <path class="flow-light" d="M588 99 H876"></path>
+                  </g>
+                  <g class="flow-connection flow-body">
+                    <path class="flow-track" d="M1032 99 H1044 V190 H1056"></path>
+                    <path class="flow-light" d="M1032 99 H1044 V190 H1056"></path>
+                  </g>
+                </svg>
+
+                <div class="flow-node flow-input flow-shared">
+                  <span class="node-icon"><i data-lucide="image"></i></span>
+                  <strong data-i18n="nodeInput">Input photo</strong>
+                  <small data-i18n="nodeInputNote">Unconstrained image</small>
+                </div>
+                <div class="flow-node flow-face-crop flow-face-only">
+                  <span class="node-icon"><i data-lucide="scan-face"></i></span>
+                  <strong data-i18n="nodeCrop">Aligned face crop</strong>
+                  <small data-i18n="nodeCropNote">Localized evidence</small>
+                </div>
+                <div class="flow-node flow-face-expert flow-face-only">
+                  <span class="route-index">01</span>
+                  <span class="node-icon"><i data-lucide="scan-face"></i></span>
+                  <strong data-i18n="nodeFaceExpert">Face expert</strong>
+                  <small data-i18n="nodeFaceExpertNote">Fine-grained facial detail</small>
+                </div>
+                <div class="flow-node flow-body-expert flow-body-only flow-hint-only">
+                  <span class="route-index">02</span>
+                  <span class="node-icon"><i data-lucide="cat"></i></span>
+                  <strong data-i18n="nodeBodyExpert">Whole-cat expert</strong>
+                  <small data-i18n="nodeBodyExpertNote">Global appearance</small>
+                </div>
+                <div class="flow-node flow-fusion flow-face-only">
+                  <span class="node-icon"><i data-lucide="combine"></i></span>
+                  <strong data-i18n="nodeFusion">Shared hint fusion</strong>
+                  <small data-i18n="nodeFusionNote">Whole-cat correction</small>
+                </div>
+                <div class="flow-node flow-face-gallery flow-face-only">
+                  <span class="node-icon"><i data-lucide="database"></i></span>
+                  <strong data-i18n="nodeFaceGallery">Face gallery</strong>
+                  <small data-i18n="nodeFaceGalleryNote">Face-route retrieval</small>
+                </div>
+                <div class="flow-node flow-body-gallery flow-body-only">
+                  <span class="node-icon"><i data-lucide="database"></i></span>
+                  <strong data-i18n="nodeBodyGallery">Whole-cat gallery</strong>
+                  <small data-i18n="nodeBodyGalleryNote">Fallback retrieval</small>
+                </div>
+                <div class="flow-node flow-ranking flow-shared">
+                  <span class="node-icon"><i data-lucide="list-ordered"></i></span>
+                  <strong data-i18n="nodeRanking">Identity ranking</strong>
+                  <small data-i18n="nodeRankingNote">Route-specific result</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="method-cards">
+            <article class="method-card reveal">
+              <span class="method-number">01</span>
+              <div class="method-icon"><i data-lucide="scan-face"></i></div>
+              <h3 data-i18n="cardLocalization">Face localization</h3>
+              <p data-i18n="cardLocalizationBody">Nine landmarks normalize translation, in-plane rotation, and scale into a 256 × 256 aligned crop.</p>
+            </article>
+            <article class="method-card reveal" data-delay="80">
+              <span class="method-number">02</span>
+              <div class="method-icon"><i data-lucide="cpu"></i></div>
+              <h3 data-i18n="cardExperts">Independent experts</h3>
+              <p data-i18n="cardExpertsBody">Separate DINOv3 ViT-B/16 encoders produce 512-dimensional face and whole-cat embeddings.</p>
+            </article>
+            <article class="method-card reveal" data-delay="160">
+              <span class="method-number">03</span>
+              <div class="method-icon"><i data-lucide="combine"></i></div>
+              <h3 data-i18n="cardFusion">Gated context fusion</h3>
+              <p data-i18n="cardFusionBody">A sample-dependent gate contributes global context while preserving the face representation.</p>
+            </article>
+            <article class="method-card reveal" data-delay="240">
+              <span class="method-number">04</span>
+              <div class="method-icon"><i data-lucide="database"></i></div>
+              <h3 data-i18n="cardRetrieval">Gallery retrieval</h3>
+              <p data-i18n="cardRetrievalBody">Similarity search ranks identities; new individuals can be enrolled without model retraining.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section dataset-section" id="dataset">
+        <div class="shell dataset-grid">
+          <div class="dataset-copy reveal">
+            <div class="eyebrow eyebrow-dark"><span data-i18n="datasetName">Individual Cats in the Wild</span></div>
+            <h2 data-i18n="datasetTitle">A large-scale benchmark for unconstrained cat retrieval.</h2>
+            <p data-i18n="datasetBody">
+              ICW is an identity-disjoint benchmark collected from six public adoption and rescue platforms.
+              Multiple observations per identity capture practical variation in pose, viewpoint, background,
+              illumination, camera, and occlusion.
+            </p>
+            <a class="button button-primary" href="https://huggingface.co/choucsan" target="_blank" rel="noreferrer">
+              <span data-i18n="viewHuggingFace">View on Hugging Face</span> <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+            </a>
+          </div>
+          <div class="dataset-stats reveal" data-delay="100">
+            <article><strong>19,877</strong><span data-i18n="statIdentities">cat identities</span></article>
+            <article><strong>82,791</strong><span data-i18n="statImages">curated images</span></article>
+            <article><strong>95.86%</strong><span data-i18n="statFaceAvailable">face available</span></article>
+            <article><strong>3–19</strong><span data-i18n="statImagesPerIdentity">images per identity</span></article>
+          </div>
+        </div>
+        <div class="shell dataset-figure-wrap reveal">
+          <figure class="paper-figure paper-figure-dark" id="icw-construction">
+            <div class="figure-bar"><span data-i18n="figure02">Figure 02</span><span data-i18n="icwPipeline">ICW construction pipeline</span></div>
+            <div class="figure-media figure-media-wide" tabindex="0" aria-label="Scrollable ICW construction figure" data-i18n-aria="scrollableFigure">
+              <img src="assets/icw-data-pipeline-cropped.png" alt="Five-stage construction pipeline for the ICW dataset" data-i18n-alt="pipelineAlt" />
+            </div>
+            <figcaption data-i18n="pipelineCaption">
+              Public profiles are filtered, segmented, deduplicated, manually reviewed, and split at the identity
+              level to prevent overlap between training and evaluation identities.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section results-section" id="results">
+        <div class="shell">
+          <div class="section-heading split-heading reveal">
+            <div>
+              <div class="eyebrow"><span data-i18n="navResults">Results</span></div>
+              <h2 data-i18n="resultsTitle">Improved top-ranked retrieval.</h2>
+            </div>
+            <p data-i18n="resultsLead">
+              MeowID achieves the best Top-1 accuracy and mAP on the full ICW test set while retaining valid
+              retrieval for all queries without detectable faces.
+            </p>
+          </div>
+
+          <div class="results-grid">
+            <article class="chart-card reveal">
+              <div class="card-head">
+                <div><span class="mini-label" data-i18n="icwFullSet">ICW full set</span><h3 data-i18n="top1Accuracy">Top-1 retrieval accuracy</h3></div>
+                <span class="best-pill" data-i18n="best">Best</span>
+              </div>
+              <div class="bar-chart" aria-label="Top-1 accuracy comparison" data-i18n-aria="top1Comparison">
+                <div class="bar-row"><span>MegaDescriptor</span><div><i style="--value: 56.85%"></i></div><strong>56.85</strong></div>
+                <div class="bar-row"><span>NekoNet</span><div><i style="--value: 57.24%"></i></div><strong>57.24</strong></div>
+                <div class="bar-row"><span>PetFace</span><div><i style="--value: 71.86%"></i></div><strong>71.86</strong></div>
+                <div class="bar-row active"><span>MeowID</span><div><i style="--value: 75.93%"></i></div><strong>75.93</strong></div>
+              </div>
+              <p class="card-note" data-i18n="top1Note">+4.07 percentage points in Top-1 accuracy over PetFace.</p>
+            </article>
+
+            <article class="hint-card reveal" data-delay="100">
+              <div class="card-head">
+                <div><span class="mini-label" data-i18n="faceRoute">Face route</span><h3 data-i18n="hintTitle">Whole-cat context improves the face route.</h3></div>
+              </div>
+              <div class="delta">
+                <div><span data-i18n="faceOnly">Face only</span><strong>74.49%</strong></div>
+                <div class="delta-arrow"><span>+4.27 pp</span><i data-lucide="arrow-right" aria-hidden="true"></i></div>
+                <div class="delta-best"><span data-i18n="faceHint">Face + hint</span><strong>78.76%</strong></div>
+              </div>
+              <div class="query-outcomes">
+                <div class="outcome improved"><span>19.8%</span><small data-i18n="improved">Improved</small></div>
+                <div class="outcome unchanged"><span>77.2%</span><small data-i18n="unchanged">Unchanged</small></div>
+                <div class="outcome degraded"><span>3.0%</span><small data-i18n="degraded">Degraded</small></div>
+              </div>
+              <p class="card-note" data-i18n="rankNote">Ground-truth rank improved for 537 queries and degraded for 82.</p>
+            </article>
+          </div>
+
+          <div class="comparison-table-wrap reveal">
+            <div class="table-heading">
+              <div><span class="mini-label" data-i18n="fullTestSet">Full ICW test set</span><h3 data-i18n="retrievalComparison">Retrieval comparison</h3></div>
+              <span data-i18n="querySummary">2,846 queries · 500 unseen identities</span>
+            </div>
+            <div class="table-scroll">
+              <table>
+                <thead><tr><th data-i18n="model">Model</th><th>Top-1 ↑</th><th>Top-5% ↑</th><th>Top-50% ↑</th><th>mAP ↑</th></tr></thead>
+                <tbody>
+                  <tr><td>MegaDescriptor</td><td>56.85</td><td>89.78</td><td><strong>99.75</strong></td><td>65.45</td></tr>
+                  <tr><td>NekoNet</td><td>57.24</td><td>89.88</td><td>94.45</td><td>67.48</td></tr>
+                  <tr><td>PetFace</td><td>71.86</td><td>90.62</td><td>94.31</td><td>78.08</td></tr>
+                  <tr class="winner"><td><i data-lucide="badge-check" class="table-status" aria-hidden="true"></i> MeowID-Base</td><td><strong>75.93</strong></td><td><strong>90.72</strong></td><td>96.52</td><td><strong>80.45</strong></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="wide-result reveal">
+            <div class="wide-result-copy">
+              <div class="eyebrow eyebrow-dark"><span data-i18n="beyondCats">Beyond cats</span></div>
+              <h3 data-i18n-html="generalizationTitle">Generalization across<br /> 13 animal families.</h3>
+              <p data-i18n="generalizationBody">
+                On PetFace verification, the MeowID embedding formulation reaches 94.94% average AUC and
+                outperforms the family-specific PetFace-ArcFace baseline across all evaluated families.
+              </p>
+            </div>
+            <div class="auc-orbit" aria-label="94.94 percent average AUC" data-i18n-aria="aucAria">
+              <div class="auc-ring"><strong>94.94</strong><span data-i18n="avgAuc">AVG. AUC</span></div>
+              <span class="species s1"><i data-lucide="dog"></i></span><span class="species s2"><i data-lucide="rat"></i></span><span class="species s3"><i data-lucide="rabbit"></i></span>
+              <span class="species s4"><i data-lucide="paw-print"></i></span><span class="species s5"><i data-lucide="bird"></i></span>
+            </div>
+          </div>
+
+          <div class="efficiency-block reveal">
+            <div class="efficiency-intro">
+              <div class="eyebrow"><span data-i18n="deployment">Deployment</span></div>
+              <h3 data-i18n="deploymentTitle">End-to-end inference at 60 ms.</h3>
+              <p data-i18n="deploymentBody">Latency includes decoding, preprocessing, face localization, alignment, embedding extraction, and routing.</p>
+            </div>
+            <div class="backend-list">
+              <div><span><i class="backend-icon" data-lucide="flame"></i><strong>PyTorch GPU</strong><small>FP32</small></span><b>94.23 ms</b></div>
+              <div><span><i class="backend-icon" data-lucide="box"></i><strong>ONNX Runtime GPU</strong><small>FP32</small></span><b>79.88 ms</b></div>
+              <div class="fastest"><span><i class="backend-icon" data-lucide="gauge"></i><strong>TensorRT GPU</strong><small>FP16 · 16.66 img/s</small></span><b>60.00 ms</b></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section citation-section">
+        <div class="shell citation-grid">
+          <div class="section-heading reveal">
+            <div class="eyebrow"><span data-i18n="citation">Citation</span></div>
+            <h2 data-i18n="citationTitle">Cite MeowID.</h2>
+            <p data-i18n="citationBody">Use the following reference when building on this work.</p>
+          </div>
+          <div class="citation-card reveal" data-delay="100">
+            <div class="code-dots"><span></span><span></span><span></span><button id="copy-citation" type="button" data-i18n="copyBibtex">Copy BibTeX</button></div>
+            <pre><code id="bibtex">@article{hu2026meowid,
+  title   = {MeowID: A Dual-Expert Retrieval System
+             for Individual Cat Identification},
+  author  = {Hu, Zhangchi and Shang, Yi and Yang, Haocheng
+             and Hu, Qiwei and Li, Yuzheng},
+  year    = {2026}
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="final-cta">
+        <div class="shell final-cta-inner reveal">
+          <div>
+            <span class="paw-kicker"><i data-lucide="paw-print" aria-hidden="true"></i><span data-i18n="openResearch">Open research in individual animal identification</span></span>
+            <h2 data-i18n-html="finalTitle">Retrieval beyond<br /> a single view.</h2>
+          </div>
+          <div class="final-actions">
+            <a class="button button-primary" href="assets/MeowID.pdf" target="_blank" rel="noreferrer"><span data-i18n="readPaper">Read the paper</span> <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+            <a class="button button-outline-light" href="https://github.com/choucisan" target="_blank" rel="noreferrer"><span data-i18n="exploreCode">Explore code</span> <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="shell footer-main">
+        <a class="brand footer-brand" href="#top"><img src="assets/logo-on-dark.png" alt="MeowID" /></a>
+        <p data-i18n="footerDescription">Dual-expert retrieval for individual cat identification in unconstrained images.</p>
+        <div class="footer-links">
+          <a href="#method" data-i18n="navMethod">Method</a><a href="#dataset" data-i18n="navDataset">Dataset</a><a href="#results" data-i18n="navResults">Results</a>
+          <a href="assets/MeowID.pdf" target="_blank" rel="noreferrer"><span data-i18n="paper">Paper</span> <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+          <a href="https://github.com/choucisan" target="_blank" rel="noreferrer">GitHub <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+        </div>
+      </div>
+      <div class="shell footer-bottom">
+        <span data-i18n="copyright">© 2026 MeowID research team</span>
+        <span data-i18n="footerTagline">Identity retrieval across unconstrained observations.</span>
+      </div>
+    </footer>
+  </body>
+</html>
