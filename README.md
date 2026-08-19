@@ -17,8 +17,8 @@
 <div align="center">
   Zhangchi Hu<sup>1,2,*,†</sup>,
   Yi Shang<sup>2,*</sup>,
-  Haocheng Yang<sup>4,2,*</sup>,
-  Qiwei Hu<sup>5,*</sup>,
+  (Haocheng Yang)<sup>4,2,*</sup>,
+  (Qiwei Hu)<sup>5,*</sup>,
   and Yuzheng Li<sup>3,*</sup>
 </div>
 
@@ -31,6 +31,8 @@
   <sup>4</sup> School of Computer Science, Northwestern Polytechnical University<br>
   <sup>5</sup> College of Biological Sciences and Technology, Beijing Forestry University<br>
 </sub></div>
+
+<br>
 
 <p align="center">
   <sup>*</sup> Equal contribution &nbsp;&nbsp; <sup>†</sup> Project leader
