@@ -3,7 +3,7 @@
   "name": "ECSeg-X",
   "task": "whole_cat_instance_segmentation",
   "backend": "torch",
-  "model": "ecseg_x.safetensors",
+  "model": "model.safetensors",
   "config": "third_party/EdgeCrafter/ecdetseg/configs/ecseg/ecseg_x.yml",
   "cat_label": 15,
   "coco_category_id": 17,
