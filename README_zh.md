@@ -9,7 +9,7 @@
 <h1 align="center">MeowID: 面向猫个体识别的双专家检索系统</h1>
 
 <p align="center">
-  <img alt="Version" src="https://img.shields.io/badge/version-0.3.0-11bfae">
+  <a href="https://www.researchsquare.com/article/rs-10881972/latest"><img alt="Research Square" src="https://img.shields.io/badge/Research%20Square-preprint-319767"></a>
   <img alt="Python" src="https://img.shields.io/badge/Python-3.10%2B-0875c1">
   <img alt="PyTorch" src="https://img.shields.io/badge/PyTorch-supported-ee4c2c">
   <img alt="ONNX" src="https://img.shields.io/badge/ONNX-supported-005ced">
