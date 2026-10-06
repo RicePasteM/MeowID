@@ -10,6 +10,7 @@
 
 <p align="center">
   <a href="https://www.researchsquare.com/article/rs-10881972/latest"><img alt="Research Square" src="https://img.shields.io/badge/Research%20Square-preprint-319767"></a>
+  <a href="https://ricepastem.github.io/MeowID/"><img alt="Research Square" src="https://img.shields.io/badge/Project%20Page-github-000000"></a>
   <img alt="Python" src="https://img.shields.io/badge/Python-3.10%2B-0875c1">
   <img alt="PyTorch" src="https://img.shields.io/badge/PyTorch-supported-ee4c2c">
   <img alt="ONNX" src="https://img.shields.io/badge/ONNX-supported-005ced">
