@@ -8,7 +8,8 @@ dist/
 *.egg-info/
 registries/
 outputs/
-data/
+# Ignore datasets at the repository root, while keeping nested data packages.
+/data/
 *.log
 docs/
 
