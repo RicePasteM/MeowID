@@ -2,6 +2,10 @@
   <strong>English</strong> | <a href="README_zh.md">简体中文</a> | <a href="README_ja.md">日本語</a>
 </p>
 
+> **Make every encounter a familiar one.**
+>
+> MeowID now offers an online integration service. Visit [meowid.net](https://meowid.net/) to learn how to bring individual cat identification to your application.
+
 <p align="center">
   <img src="assets/logo.png" alt="MeowID" width="420">
 </p>

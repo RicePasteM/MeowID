@@ -2,6 +2,10 @@
   <a href="README.md">English</a> | <strong>简体中文</strong> | <a href="README_ja.md">日本語</a>
 </p>
 
+> **让每一次相遇，都认得它。**
+>
+> MeowID 正在提供在线接入服务。欢迎访问 [meowid.net](https://meowid.net/)，了解如何将猫个体识别能力接入你的应用。
+
 <p align="center">
   <img src="assets/logo.png" alt="MeowID" width="420">
 </p>

@@ -2,6 +2,10 @@
   <a href="README.md">English</a> | <a href="README_zh.md">简体中文</a> | <strong>日本語</strong>
 </p>
 
+> **出会うたびに、あの子だとわかる。**
+>
+> MeowID はオンライン連携サービスを提供しています。[meowid.net](https://meowid.net/) にアクセスして、猫の個体識別機能をアプリケーションに組み込む方法をご覧ください。
+
 <p align="center">
   <img src="assets/logo.png" alt="MeowID" width="420">
 </p>
